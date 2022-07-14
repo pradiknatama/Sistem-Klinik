@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Tindakan;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -9,7 +10,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TindakanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tindakans';
+$this->title = 'Tindakan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tindakan-index">
@@ -27,8 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'nama',
             [
                 'class' => ActionColumn::className(),

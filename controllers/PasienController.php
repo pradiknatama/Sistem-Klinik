@@ -4,9 +4,12 @@ namespace app\controllers;
 
 use app\models\Pasien;
 use app\models\PasienSearch;
+use app\models\User;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * PasienController implements the CRUD actions for Pasien model.
@@ -39,9 +42,15 @@ class PasienController extends Controller
     public function actionIndex()
     {
         $searchModel = new PasienSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider = $searchModel->search($this->request->queryParams);  
+        $tes=Pasien::find()->where(['dokter_id'=>Yii::$app->user->id])->orderBy('id')->all();
+        $DB=Yii::$app->db;
+        $data=$DB->createCommand("SELECT *,COUNT(wilayah) AS total FROM `pasien` GROUP BY wilayah;")->queryAll();
+
 
         return $this->render('index', [
+            'tes'=>$tes,
+            'data'=>$data,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -92,7 +101,7 @@ class PasienController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

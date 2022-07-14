@@ -56,7 +56,7 @@ class Pasien extends \yii\db\ActiveRecord
             'wilayah' => 'Wilayah',
             'diagnosa' => 'Diagnosa',
             'tindakan_id' => 'Tindakan',
-            'dokter_id' => 'Dokter',
+            'Dokter' => 'Dokter',
         ];
     }
 
@@ -65,7 +65,7 @@ class Pasien extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDokter()
+    public function getUsers()
     {
         return $this->hasOne(User::className(), ['id' => 'dokter_id']);
     }
@@ -89,4 +89,7 @@ class Pasien extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Tindakan::className(), ['id' => 'tindakan_id']);
     }
+    // public static function getAllPasiens($id){
+    //     return Pasien::find()->where(['dokter_id'=>$id])->one();
+    // }
 }
